@@ -7,29 +7,38 @@ This application will synchronize contents of S3 folder to GCS folder in batch m
 ![Architecture](./img/arch.png)
 
 # Build instructions
-### Prerequisite
+## Prerequisite
 The following prerequisite are required for the build
 
-1. [Installed Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
+### Enable Google Cloud services
+[Instal Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 
-The following services needs to be enabled
+Enable the following services.
+
 * [Cloud Build API](https://cloud.google.com/build/docs)
 * [Artifact Registry API](https://cloud.google.com/artifact-registry/docs)
 * [Batch API](https://cloud.google.com/batch/docs/get-started)
 
 You can check if these services are enabled by running these commands
 ```sh
-
 export PROJECT_ID=<YOUR_PROJECT_ID>
 
-```
-
-```sh
 gcloud services list --enabled --project $PROJECT_ID | grep -E "cloudbuild.googleapis.com|artifactregistry.googleapis.com|batch.googleapis.com"
-
 ```
-### Clone the repo
-1. Clone this repo for building the application image in your environment.
+
+### Setup Artifact registry
+To setup [Google Cloud Artifact registry](https://cloud.google.com/artifact-registry/docs) you first need to create a repository.
+
+![Create respository](./img/create_repo.png)
+
+Once you create the repository you can select the resposity and copy the link to the repository
+
+![select repository location](./img/copy_link.png)
+
+You can then append the name of the image to repository location to get the final image location.
+
+## Clone the repo
+Clone this repo for building the application image in your environment.
 
 ```sh
 git clone https://github.com/anandj123/s3-gcs-rsync-batch.git && cd s3-gcs-rsync-batch
@@ -72,7 +81,7 @@ export COPY_JOB_NAME=S3-to-GCS-2
 |AWS_ACCESS_KEY|Provide the AWS_ACCESS_KEY, this will be stored inside the container image. |
 |AWS_SECRET_ACCESS_KEY|Provide the AWS_SECRET_ACCESS_KEY, this will be stored inside the container image. |
 |REGION|Provide the Google Cloud region for your application. e.g. **us-east1** |
-|IMAGE_LOCATION|Provide the artifact registry location e.g. **us-docker.pkg.dev/<YOUR_PROJECT_ID>/s3-gcs-rsync/s3-gcs-rsync:latest**|
+|IMAGE_LOCATION|Provide the artifact registry location e.g. **us-docker.pkg.dev/<YOUR_PROJECT_ID>/s3-gcs-rsync/s3-gcs-rsync:latest**. Refer to [setup artifact registry section for more details](#setup-artifact-registry)|
 |COPY_JOB_NAME|Name the copy job e.g. **S3-to-GCS-Copy-1**|
 
 
