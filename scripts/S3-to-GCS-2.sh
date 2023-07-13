@@ -1,0 +1,4 @@
+curl -H "Content-Type: application/json" \
+-H "Authorization: Bearer "$(gcloud auth application-default print-access-token) \
+-X POST https://batch.googleapis.com/v1/projects/anand-bq-test-3/locations/us-central1/jobs?job_id=s3-gcs-rsync-$(date +%s) \
+-d '{"taskGroups": [ {"taskSpec": {"runnables": [{"container": {"image_uri": "us-central1-docker.pkg.dev/anand-bq-test-3/s3-gcs-rsync/image-1:latest"},"environment": {"variables": {"BOTO_PATH":"/.boto","S3_LOCATION":"s3://plutodl-dev-raw-mongo-cms/clips/2023/","GCS_LOCATION":"gs://anand-bq-test-3/plutod1-dev/clips/2023/"}}}],"computeResource": {"cpuMilli": 2000,"memoryMib": 2000}},"taskCount": 1,"parallelism": 1}],"allocationPolicy": {"instances": [{"policy": {"machineType": "e2-medium"}}]},"labels": {"department": "clinical","env": "dev"},"logsPolicy": {"destination": "CLOUD_LOGGING"}}'

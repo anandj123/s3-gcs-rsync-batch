@@ -99,6 +99,29 @@ chmod +x cloud-build.sh
 
 3. It will create a shell script that will invoke the Google Cloud Batch job using ```curl``` command. The file will be located at ```scripts/$COPY_JOB_NAME.sh```
 
+### Google Cloud Service account permissions
+
+Grant the following permission to the service account that is used for running the Google Cloud Batch job.
+
+#### Storage Object Creator (roles/storage.objectCreator)	
+Allows users to create objects. Does not give permission to view, delete, or replace objects.	
+* orgpolicy.policy.get
+* resourcemanager.projects.get
+* resourcemanager.projects.list
+* storage.objects.create
+* storage.multipartUploads.create
+* storage.multipartUploads.abort
+* storage.multipartUploads.listParts
+
+#### Storage Object Viewer (roles/storage.objectViewer)	
+Grants access to view objects and their metadata, excluding ACLs. Can also list the objects in a bucket.
+
+* resourcemanager.projects.get
+* resourcemanager.projects.list
+* storage.objects.get
+* storage.objects.list
+
+
 # Test the application
 
 To manually test the configuration you can invoke the Google Cloud Batch by running 
